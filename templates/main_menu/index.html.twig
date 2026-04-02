@@ -1,0 +1,200 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestión de Incidencias{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+        {% block body %}
+
+        {# MAIN CONTENT #}
+        <main class="main">
+
+            {# HEADER #}
+            <header class="main__header">
+                <div class="header-left">
+                    <h1 class="page-title">Incidencias</h1>
+                    <span class="page-subtitle">Panel de control · MantisBT</span>
+                </div>
+                <div class="header-right">
+                    <a href="#" class="btn btn--primary">+ Nueva incidencia</a>
+                </div>
+            </header>
+
+            {# STATS
+            <section class="stats">
+                <div class="stat-card stat-card--red">
+                    <span class="stat-label">Críticas</span>
+                    <span class="stat-number">{{ stats.criticas ?? 0 }}</span>
+                    <span class="stat-trend">↑ Alta prioridad</span>
+                </div>
+                <div class="stat-card stat-card--amber">
+                    <span class="stat-label">En progreso</span>
+                    <span class="stat-number">{{ stats.en_progreso ?? 0 }}</span>
+                    <span class="stat-trend">→ Asignadas</span>
+                </div>
+                <div class="stat-card stat-card--blue">
+                    <span class="stat-label">Abiertas</span>
+                    <span class="stat-number">{{ stats.abiertas ?? 0 }}</span>
+                    <span class="stat-trend">↗ Pendientes</span>
+                </div>
+                <div class="stat-card stat-card--green">
+                    <span class="stat-label">Resueltas</span>
+                    <span class="stat-number">{{ stats.resueltas ?? 0 }}</span>
+                    <span class="stat-trend">✓ Este mes</span>
+                </div>
+            </section>
+            #}
+            {# FILTROS
+            <section class="filters">
+                <div class="filters__search">
+                    <span class="search-icon">⌕</span>
+                    <input type="text" placeholder="Buscar incidencia..." class="search-input">
+                </div>
+                <div class="filters__controls">
+                    <select class="filter-select">
+                        <option>Todos los estados</option>
+                        <option>Abierta</option>
+                        <option>En progreso</option>
+                        <option>Resuelta</option>
+                        <option>Cerrada</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>Todas las prioridades</option>
+                        <option>Crítica</option>
+                        <option>Alta</option>
+                        <option>Normal</option>
+                        <option>Baja</option>
+                    </select>
+                </div>
+            </section>
+            #}
+            {# TABLA DE INCIDENCIAS #}
+            <section class="table-section">
+                <table class="incidents-table">
+                    <thead>
+                    <tr>
+                        <th>#ID</th>
+                        <th>Resumen</th>
+                        <th>Proyecto</th>
+                        <th>Prioridad</th>
+                        <th>Estado</th>
+                        <th>Asignado a</th>
+                        <th>Fecha</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if incidencias is defined and incidencias|length > 0 %}
+                        {% for bug in incidencias %}
+                            <tr class="incident-row">
+                                <td class="incident-id">#{{ bug.id }}</td>
+                                <td class="incident-summary">{{ bug.summary }}</td>
+                                <td class="incident-project">{{ bug.project }}</td>
+                                <td>
+                                <span class="badge badge--{{ bug.priority|lower }}">
+                                    {{ bug.priority }}
+                                </span>
+                                </td>
+                                <td>
+                                <span class="status status--{{ bug.status|lower }}">
+                                    {{ bug.status }}
+                                </span>
+                                </td>
+                                <td class="incident-assignee">{{ bug.assignee ?? '—' }}</td>
+                                <td class="incident-date">{{ bug.date_submitted|date('d/m/Y') }}</td>
+                                <td class="incident-actions">
+                                    <a href="#" class="action-btn" title="Ver">◉</a>
+                                    <a href="#" class="action-btn" title="Editar">✎</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {# DATOS DE EJEMPLO #}
+                        <tr class="incident-row">
+                            <td class="incident-id">#1042</td>
+                            <td class="incident-summary">Error al exportar informe PDF en módulo de facturación</td>
+                            <td class="incident-project">Facturación</td>
+                            <td><span class="badge badge--critica">Crítica</span></td>
+                            <td><span class="status status--abierta">Abierta</span></td>
+                            <td class="incident-assignee">jgarcia</td>
+                            <td class="incident-date">28/03/2026</td>
+                            <td class="incident-actions">
+                                <a href="#" class="action-btn">◉</a>
+                                <a href="#" class="action-btn">✎</a>
+                            </td>
+                        </tr>
+                        <tr class="incident-row">
+                            <td class="incident-id">#1041</td>
+                            <td class="incident-summary">Login falla con usuarios LDAP externos</td>
+                            <td class="incident-project">Autenticación</td>
+                            <td><span class="badge badge--alta">Alta</span></td>
+                            <td><span class="status status--progreso">En progreso</span></td>
+                            <td class="incident-assignee">mlopez</td>
+                            <td class="incident-date">27/03/2026</td>
+                            <td class="incident-actions">
+                                <a href="#" class="action-btn">◉</a>
+                                <a href="#" class="action-btn">✎</a>
+                            </td>
+                        </tr>
+                        <tr class="incident-row">
+                            <td class="incident-id">#1040</td>
+                            <td class="incident-summary">Paginación incorrecta en listado de clientes</td>
+                            <td class="incident-project">CRM</td>
+                            <td><span class="badge badge--normal">Normal</span></td>
+                            <td><span class="status status--resuelta">Resuelta</span></td>
+                            <td class="incident-assignee">aperez</td>
+                            <td class="incident-date">25/03/2026</td>
+                            <td class="incident-actions">
+                                <a href="#" class="action-btn">◉</a>
+                                <a href="#" class="action-btn">✎</a>
+                            </td>
+                        </tr>
+                        <tr class="incident-row">
+                            <td class="incident-id">#1039</td>
+                            <td class="incident-summary">Notificaciones email no se envían correctamente</td>
+                            <td class="incident-project">Notificaciones</td>
+                            <td><span class="badge badge--alta">Alta</span></td>
+                            <td><span class="status status--abierta">Abierta</span></td>
+                            <td class="incident-assignee">—</td>
+                            <td class="incident-date">24/03/2026</td>
+                            <td class="incident-actions">
+                                <a href="#" class="action-btn">◉</a>
+                                <a href="#" class="action-btn">✎</a>
+                            </td>
+                        </tr>
+                        <tr class="incident-row">
+                            <td class="incident-id">#1038</td>
+                            <td class="incident-summary">Timeout en consultas con más de 10k registros</td>
+                            <td class="incident-project">Base de Datos</td>
+                            <td><span class="badge badge--critica">Crítica</span></td>
+                            <td><span class="status status--progreso">En progreso</span></td>
+                            <td class="incident-assignee">rmartin</td>
+                            <td class="incident-date">22/03/2026</td>
+                            <td class="incident-actions">
+                                <a href="#" class="action-btn">◉</a>
+                                <a href="#" class="action-btn">✎</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+
+                {# PAGINACIÓN #}
+                <div class="pagination">
+                    <span class="pagination__info">Mostrando 1–5 de 42 incidencias</span>
+                    <div class="pagination__controls">
+                        <a href="#" class="page-btn">‹</a>
+                        <a href="#" class="page-btn page-btn--active">1</a>
+                        <a href="#" class="page-btn">2</a>
+                        <a href="#" class="page-btn">3</a>
+                        <span class="page-dots">···</span>
+                        <a href="#" class="page-btn">9</a>
+                        <a href="#" class="page-btn">›</a>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+services:
+  mantisbt:
+    image: vimagick/mantisbt:latest
+    container_name: mantisbt
+    ports:
+      - "8080:80"
+    environment:
+      - MANTIS_DB_HOST=127.0.0.1
+      - MANTIS_DB_PORT=3306
+      - MANTIS_DB_NAME=bugtracker
+      - MANTIS_DB_USER=root
+      - MANTIS_DB_PASSWORD=spanha

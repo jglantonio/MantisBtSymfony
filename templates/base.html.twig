@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/incidencias.css') }}">
+
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+        {% endblock %}
+
+        {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
+        {% if frankenphpHotReload %}
+        <meta name="frankenphp-hot-reload:url" content="{{ frankenphpHotReload }}">
+        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
+        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
+        {% endif %}
+    </head>
+    <body>
+    <div class="dashboard">
+
+        {# SIDEBAR #}
+        <aside class="sidebar">
+            <div class="sidebar__logo">
+                <span class="logo-icon">⬡</span>
+                <span class="logo-text">BugDesk</span>
+            </div>
+            <nav class="sidebar__nav">
+                <a href="#" class="nav-item nav-item--active">
+                    <span class="nav-icon">▣</span> Incidencias
+                </a>
+        {#         <a href="#" class="nav-item">
+                    <span class="nav-icon">◈</span> Proyectos
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◉</span> Usuarios
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◎</span> Informes
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◌</span> Configuración
+                </a>
+            </nav>
+            <div class="sidebar__user">
+                <div class="user-avatar">{{ app.user ? app.user.username|first|upper : 'A' }}</div>
+                <div class="user-info">
+                    <span class="user-name">{{ app.user ? app.user.username : 'Admin' }}</span>
+                    <span class="user-role">Administrador</span>
+                </div>
+                <a href="{{ path('app_logout') }}" class="logout-btn" title="Cerrar sesión">⏻</a>
+            </div>
+        #}
+        </aside>
+
+        {% block body %}{% endblock %}
+    </body>
+</html>
