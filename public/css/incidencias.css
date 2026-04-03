@@ -48,7 +48,25 @@ body {
     display: flex;
     min-height: 100vh;
 }
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    gap: 10px;
+}
 /* ---- SIDEBAR ---- */
 .sidebar {
     width: var(--sidebar-width);

@@ -2,34 +2,49 @@
 
 namespace App\Entity;
 
-use App\Repository\BugEntityRepository;
+use App\Repository\BugRepository;
+use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bundle\SecurityBundle\Security;
 
-#[ORM\Entity(repositoryClass: BugEntityRepository::class)]
+#[ORM\Entity(repositoryClass: BugRepository::class)]
 #[ORM\Table(name : 'mantis_bug_table')]
-class BugEntity
+class Bug
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $project_id = null;
+    #[ORM\Column(name: 'project_id' ,type: 'integer',nullable: true )]
+    private ?int $projectId = null;
+
+    #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'bugs')]
+    private Project $project;
 
     #[ORM\Column]
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'bugs')]
     private ?int $reporter_id = null;
 
-    #[ORM\Column]
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'bugs')]
+    private User $reporter;
+
+    #[ORM\Column]
     private ?int $handler_id = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'bugs')]
+    private User  $handler;
 
     #[ORM\Column]
     private ?int $duplicate_id = null;
 
     #[ORM\Column]
     private ?int $priority = null;
+
+    #[ORM\Column(name: 'last_updated' ,type: 'integer',nullable: true )]
+    private ?int $lastUpdated = null;
+
+    #[ORM\Column(name: 'date_submitted' ,type: 'integer',nullable: true )]
+    private ?int $dateSubmitted = null;
 
     #[ORM\Column]
     private ?int $severity = null;
@@ -57,9 +72,19 @@ class BugEntity
         return $this->id;
     }
 
+    public function getProject(): ?object
+    {
+        return $this->project;
+    }
+
     public function getProjectId(): ?int
     {
-        return $this->project_id;
+        return $this->projectId;
+    }
+
+    public function getSummary(): ?string
+    {
+        return $this->summary;
     }
 
     public function setProjectId(int $project_id): static
@@ -81,9 +106,13 @@ class BugEntity
         return $this;
     }
 
-    public function getHandlerId(): ?int
+    public function getHandler(): ?object
     {
-        return $this->handler_id;
+        return $this->handler;
+    }
+    public function getReporter(): ?object
+    {
+        return $this->handler;
     }
 
     public function setHandlerId(int $handler_id): static
@@ -91,5 +120,18 @@ class BugEntity
         $this->handler_id = $handler_id;
 
         return $this;
+    }
+
+    public function getLastUpdated(){
+        return date('Y-m-d H:i:s', $this->lastUpdated);
+    }
+    public function getDateSubmitted() {
+        return date('Y-m-d H:i:s', $this->dateSubmitted);
+    }
+    public function getPriority(){
+        return "Alta";
+    }
+    public function getStatus(){
+        return "Ok";
     }
 }

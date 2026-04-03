@@ -1,0 +1,60 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap');
+
+:root {
+    --bg-base:        #0d0f12;
+    --bg-surface:     #13161b;
+    --bg-elevated:    #1a1e26;
+    --bg-hover:       #1f2430;
+
+    --border:         #252932;
+    --border-bright:  #2e3440;
+
+    --text-primary:   #e8ecf0;
+    --text-secondary: #8892a0;
+    --text-muted:     #4a5260;
+
+    --accent-red:     #ff3b4e;
+    --accent-amber:   #ffb020;
+    --accent-blue:    #3b9eff;
+    --accent-green:   #24d48a;
+
+    --red-dim:        rgba(255, 59, 78, 0.12);
+    --amber-dim:      rgba(255, 176, 32, 0.12);
+    --blue-dim:       rgba(59, 158, 255, 0.12);
+    --green-dim:      rgba(36, 212, 138, 0.12);
+
+    --sidebar-width:  220px;
+    --font-mono:      'Space Mono', monospace;
+    --font-sans:      'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    gap: 10px;
+}

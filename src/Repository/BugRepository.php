@@ -2,18 +2,18 @@
 
 namespace App\Repository;
 
-use App\Entity\BugEntity;
+use App\Entity\Bug;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<BugEntity>
+ * @extends ServiceEntityRepository<Bug>
  */
-class BugEntityRepository extends ServiceEntityRepository
+class BugRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, BugEntity::class);
+        parent::__construct($registry, Bug::class);
     }
 
     public function getIncidenciasByHandlerId(int $int)
