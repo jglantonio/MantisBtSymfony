@@ -87,7 +87,6 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% if incidencias is defined and incidencias|length > 0 %}
                         {% for bug in incidencias %}
                             <tr class="incident-row">
                                 <td class="incident-id">#{{ bug.id }}</td>
@@ -108,103 +107,13 @@
                                 <td class="">{{ bug.lastUpdated ?? '—' }}</td>
                                 <td class="">{{ bug.dateSubmitted ?? '—' }}</td>
 
-                            {#
-                                </td>
-                                <td class="incident-assignee">{{ bug.assignee ?? '—' }}</td>
-                                <td class="incident-date">{{ bug.date_submitted|date('d/m/Y') }}</td>
-                                <td class="incident-actions">
-                                    <a href="#" class="action-btn" title="Ver">◉</a>
-                                    <a href="#" class="action-btn" title="Editar">✎</a>
                                 </td>
                             </tr>
-#}
-                        {% endfor %}
-                    {% else %}
-                        {# DATOS DE EJEMPLO #}
-                        <tr class="incident-row">
-                            <td class="incident-id">#1042</td>
-                            <td class="incident-summary">Error al exportar informe PDF en módulo de facturación</td>
-                            <td class="incident-project">Facturación</td>
-                            <td><span class="badge badge--critica">Crítica</span></td>
-                            <td><span class="status status--abierta">Abierta</span></td>
-                            <td class="incident-assignee">jgarcia</td>
-                            <td class="incident-date">28/03/2026</td>
-                            <td class="incident-actions">
-                                <a href="#" class="action-btn">◉</a>
-                                <a href="#" class="action-btn">✎</a>
-                            </td>
-                        </tr>
-                        <tr class="incident-row">
-                            <td class="incident-id">#1041</td>
-                            <td class="incident-summary">Login falla con usuarios LDAP externos</td>
-                            <td class="incident-project">Autenticación</td>
-                            <td><span class="badge badge--alta">Alta</span></td>
-                            <td><span class="status status--progreso">En progreso</span></td>
-                            <td class="incident-assignee">mlopez</td>
-                            <td class="incident-date">27/03/2026</td>
-                            <td class="incident-actions">
-                                <a href="#" class="action-btn">◉</a>
-                                <a href="#" class="action-btn">✎</a>
-                            </td>
-                        </tr>
-                        <tr class="incident-row">
-                            <td class="incident-id">#1040</td>
-                            <td class="incident-summary">Paginación incorrecta en listado de clientes</td>
-                            <td class="incident-project">CRM</td>
-                            <td><span class="badge badge--normal">Normal</span></td>
-                            <td><span class="status status--resuelta">Resuelta</span></td>
-                            <td class="incident-assignee">aperez</td>
-                            <td class="incident-date">25/03/2026</td>
-                            <td class="incident-actions">
-                                <a href="#" class="action-btn">◉</a>
-                                <a href="#" class="action-btn">✎</a>
-                            </td>
-                        </tr>
-                        <tr class="incident-row">
-                            <td class="incident-id">#1039</td>
-                            <td class="incident-summary">Notificaciones email no se envían correctamente</td>
-                            <td class="incident-project">Notificaciones</td>
-                            <td><span class="badge badge--alta">Alta</span></td>
-                            <td><span class="status status--abierta">Abierta</span></td>
-                            <td class="incident-assignee">—</td>
-                            <td class="incident-date">24/03/2026</td>
-                            <td class="incident-actions">
-                                <a href="#" class="action-btn">◉</a>
-                                <a href="#" class="action-btn">✎</a>
-                            </td>
-                        </tr>
-                        <tr class="incident-row">
-                            <td class="incident-id">#1038</td>
-                            <td class="incident-summary">Timeout en consultas con más de 10k registros</td>
-                            <td class="incident-project">Base de Datos</td>
-                            <td><span class="badge badge--critica">Crítica</span></td>
-                            <td><span class="status status--progreso">En progreso</span></td>
-                            <td class="incident-assignee">rmartin</td>
-                            <td class="incident-date">22/03/2026</td>
-                            <td class="incident-actions">
-                                <a href="#" class="action-btn">◉</a>
-                                <a href="#" class="action-btn">✎</a>
-                            </td>
-                        </tr>
-                    {% endif %}
+                    {% endfor %}
                     </tbody>
                 </table>
-
-                {# PAGINACIÓN #}
-                <div class="pagination">
-                    <span class="pagination__info">Mostrando 1–5 de 42 incidencias</span>
-                    <div class="pagination__controls">
-                        <a href="#" class="page-btn">‹</a>
-                        <a href="#" class="page-btn page-btn--active">1</a>
-                        <a href="#" class="page-btn">2</a>
-                        <a href="#" class="page-btn">3</a>
-                        <span class="page-dots">···</span>
-                        <a href="#" class="page-btn">9</a>
-                        <a href="#" class="page-btn">›</a>
-                    </div>
-                </div>
             </section>
-
         </main>
+#}
     </div>
 {% endblock %}

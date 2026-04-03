@@ -118,4 +118,16 @@ class Project
         return $this;
     }
 
+    public function setFilePath($filePath)
+    {
+        $this->filePath = $filePath;
+        return $this;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
 }

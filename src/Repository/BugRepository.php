@@ -16,10 +16,30 @@ class BugRepository extends ServiceEntityRepository
         parent::__construct($registry, Bug::class);
     }
 
+    /**
+     * Bugs by handler_id
+     * @param int $int
+     * @return mixed
+     */
+
     public function getIncidenciasByHandlerId(int $int)
     {
         return $this->createQueryBuilder('b')
             ->where('b.handler_id = :int')
+            ->setParameter('int', $int)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Bugs by reporter_id
+     * @param int $int
+     * @return mixed
+     */
+    public function getIncidenciasByReporterId(int $int)
+    {
+        return $this->createQueryBuilder('b')
+            ->where('b.reporter_id = :int')
             ->setParameter('int', $int)
             ->getQuery()
             ->getResult();

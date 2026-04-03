@@ -13,12 +13,13 @@ class ProjectFixture extends Fixture
     public function load(ObjectManager $manager): void
     {
         $project = new Project();
+        $project->setId(1);
         $project->setName('Mantis Bt');
         $project->setStatus(StatusRepository::STATUS_DEVELOPMENT);
         $project->setEnabled(1);
         $project->setViewState(10);
         $project->setAccessMin(10);
-        //$project->setFilePath(null);
+        $project->setFilePath("");
         $project->setDescription("Lorem ipsum project");
         $project->setCategoryId(1);
         $project->setInheritGlobal(1);

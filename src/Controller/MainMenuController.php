@@ -14,7 +14,10 @@ final class MainMenuController extends AbstractController
     public function index(BugRepository $BugRepository,Security $security): Response
     {
         $user = $security->getUser();
-        $inciencias = $BugRepository->getIncidenciasByHandlerId($user->getId());
+        $inciencias = array_merge(
+            $BugRepository->getIncidenciasByReporterId($user->getId()),
+            $BugRepository->getIncidenciasByHandlerId($user->getId())
+        );
         return $this->render('main_menu/index.html.twig', [
             'controller_name' => 'MainMenuController',
             'incidencias' => $inciencias
