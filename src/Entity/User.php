@@ -46,6 +46,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
+    public function setRealName(string $realname){
+        $this->realname = $realname;
+    }
+    public function setEmail(string $email){
+        $this->email = $email;
+    }
+
+    public function setEnabled(int $enabled = 1){
+        $this->enabled = $enabled;
+    }
+    public function setAccessLevel(int $accessLevel = 90){
+        $this->access_level = $accessLevel;
+    }
+    public function setProtected(int $protected = 0){
+        $this->protected = $protected;
+    }
     public function getUsername(): ?string
     {
         return $this->username;
@@ -85,6 +101,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
+    public function setRole($rol){
+        return $this->rol = $rol;
+    }
     /**
      * @param list<string> $roles
      */
@@ -105,7 +124,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setPassword(string $password): static
     {
-        $this->password = $password;
+        $this->password = md5($password);
 
         return $this;
     }

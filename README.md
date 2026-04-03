@@ -65,4 +65,5 @@ or want to suggest a new feature.
 
 ## 📄 License
 
-MIT — do whatever you want, just don't blame us. 😅
+MIT — do whatever you want, just don't blame us. 😅ç
+

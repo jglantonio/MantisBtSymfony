@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use AllowDynamicProperties;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+#[AllowDynamicProperties]
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[ORM\Table(name : 'mantis_project_table')]
 class Project
@@ -23,11 +25,11 @@ class Project
     #[ORM\Column(length: 4)]
     private ?string $enabled = null;
 
-    #[ORM\Column(name: 'view_state' ,type: 'string',nullable: true )]
-    private ?string $viewState = null;
+    #[ORM\Column(name: 'view_state' ,type: 'integer',nullable: true )]
+    private int $viewState;
 
-    #[ORM\Column(name: 'access_min' ,type: 'string',nullable: true )]
-    private ?string $accessMin = null;
+    #[ORM\Column(name: 'access_min' ,type: 'integer',nullable: true )]
+    private ?string $accessMin;
 
     #[ORM\Column(name: 'file_path' ,type: 'string',nullable: true )]
     private ?string $filePath = null;
@@ -38,8 +40,56 @@ class Project
     #[ORM\Column(name: 'category_id' ,type: 'integer',nullable: true )]
     private ?string $categoryId = null;
 
+
+    #[ORM\Column(name: 'inherit_global' ,type: 'integer',nullable: true )]
+    private ?int $inheritGobal ;
+
+
+
     private Category $category;
 
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function setEnabled(string $enabled): static
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+    public function setAccessMin(int $value)
+    {
+        $this->accessMin = $value;
+        return $this;
+    }
+
+    public function setViewState(int $viewState)
+    {
+        $this->viewState = $viewState;
+        return $this;
+    }
+
+    public function getEnabled(): ?string
+    {
+        return $this->enabled;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -50,34 +100,22 @@ class Project
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setDescription(string $value)
     {
-        $this->name = $name;
-
+        $this->description = $value;
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function setCategoryId(int $id)
     {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): static
-    {
-        $this->status = $status;
-
+        $this->categoryId = $id;
         return $this;
     }
 
-    public function getEnabled(): ?string
+    public function setInheritGlobal(int $value)
     {
-        return $this->enabled;
-    }
-
-    public function setEnabled(string $enabled): static
-    {
-        $this->enabled = $enabled;
-
+        $this->inheritGobal = $value;
         return $this;
     }
+
 }
