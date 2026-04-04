@@ -67,6 +67,23 @@ body {
     width: 400px;
     gap: 10px;
 }
+/* ---- PANEL ---- */
+
+.panel {
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border);
+    width: 100%;
+    height: 100%;
+}
+.panel > div {
+    width: 80%;
+}
+main > section{
+    display: flex;
+    justify-content: center;
+    width: 100% !important;
+}
+
 /* ---- SIDEBAR ---- */
 .sidebar {
     width: var(--sidebar-width);

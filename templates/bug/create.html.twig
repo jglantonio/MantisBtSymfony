@@ -1,0 +1,85 @@
+{% extends 'logged.html.twig' %}
+
+{% block title %}Gestión de Incidencias{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+        {% block body %}
+
+            {# MAIN CONTENT #}
+            <main class="main">
+
+                {# HEADER #}
+                <header class="main__header">
+                    <div class="header-left">
+                        <h1 class="page-title ">Incidencias</h1>
+                        <span class="page-subtitle">Incidencias > Crear incidencia</span>
+                    </div>
+                    <div class="header-right">
+                        <a href="/bug/create" class="btn btn--primary">+ Nueva incidencia</a>
+                    </div>
+                </header>
+                <section class="panel">
+                    <div class="row">
+                        <form action="/bug/store" class="row">
+                            <div class="col-md-6">
+                                <label class='form-label' for="project_id">Project</label>
+                                <select name="project_id" id="project_id" class="form-select">
+                                    <option selected> Select an option </option>
+                                    <option>Proyecto 1</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="handler_id" class="form-label">Asignar a</label>
+                                <select name="handler_id" id="handler_id" class="form-select">
+                                    <option selected> Assign to </option>
+                                    <option>User A</option>
+                                    <option>User B</option>
+                                    <option>User C</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="priority" class="form-label">Prioridad</label>
+                                <select name="priority" id="priority" class="form-select">
+                                    <option selected> Assign priority </option>
+                                    <option>priority A</option>
+                                    <option>priority B</option>
+                                    <option>priority C</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="status" class="form-label">Status</label>
+                                <select name="status" id="status" class="form-select">
+                                    <option selected> Assign status </option>
+                                    <option>status A</option>
+                                    <option>status B</option>
+                                    <option>status C</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="category" class="form-label">Category</label>
+                                <select name="status" id="category" class="form-select">
+                                    <option selected> Assign a category </option>
+                                    <option>category A</option>
+                                    <option>category B</option>
+                                    <option>category C</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="summary" class="form-label">Title</label>
+                                <input type="text" name="summary" class="form-control">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="summary" class="form-label">Description</label>
+                                <textarea name="summary" class="form-control"></textarea>
+                            </div>
+                            <div>
+                                <input type="submit" name="Enviar" class="btn btn-light">
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </main>
+
+        {% endblock %}

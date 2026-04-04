@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -19,6 +20,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180)]
     private ?string $username = null;
+
+    #[ORM\JoinTable(
+        name: 'mantis_project_user_list_table',
+        joinColumns: [ new ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false)],
+        inverseJoinColumns: [ new ORM\JoinColumn(name: 'project_id', referencedColumnName: 'id', nullable: false)]
+    )]
+    private Collection $projects;
 
     #[ORM\Column(length: 191)]
     private ?string $realname = null;

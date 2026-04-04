@@ -58,3 +58,11 @@ body {
     width: 400px;
     gap: 10px;
 }
+
+.alert {
+    border-radius: 3pt;
+    padding:1pt 2pt;
+}
+.alert-danger {
+    background-color: red;
+}
