@@ -78,4 +78,10 @@ class Category
 
         return $this;
     }
+
+    public function setId(int $categoryId)
+    {
+        $this->id = $categoryId;
+        return $this;
+    }
 }

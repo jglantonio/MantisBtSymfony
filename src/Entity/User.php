@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use function PHPUnit\Framework\isNull;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name : 'mantis_user_table')]
@@ -26,6 +28,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         joinColumns: [ new ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false)],
         inverseJoinColumns: [ new ORM\JoinColumn(name: 'project_id', referencedColumnName: 'id', nullable: false)]
     )]
+
+    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: 'users')]
     private Collection $projects;
 
     #[ORM\Column(length: 191)]
@@ -147,10 +151,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $data;
     }
+    public function __construct()
+    {
+        $this->projects = new ArrayCollection();
+    }
+
 
     #[\Deprecated]
     public function eraseCredentials(): void
     {
         // @deprecated, to be removed when upgrading to Symfony 8
+    }
+
+    /**
+     * Asigna projecto a un usuario , NO un usuario a un proyecto.
+     * @param Project $project
+     * @return User
+     */
+    public function addProject(Project $project): void
+    {
+        if(!$this->projects->contains($project)){
+            $this->projects->add($project);
+        }
+    }
+
+    public function getProjects(): Collection
+    {
+        return $this->projects;
     }
 }

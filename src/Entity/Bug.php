@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use AllowDynamicProperties;
 use App\Repository\BugRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bundle\SecurityBundle\Security;
 
+#[AllowDynamicProperties]
 #[ORM\Entity(repositoryClass: BugRepository::class)]
 #[ORM\Table(name : 'mantis_bug_table')]
 class Bug
@@ -22,20 +24,20 @@ class Bug
     #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'bugs')]
     private Project $project;
 
-    #[ORM\Column]
-    private ?int $reporter_id = null;
+    #[ORM\Column(name: 'reporter_id' ,type: 'integer',nullable: true )]
+    private ?int $reporterId = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'bugs')]
     private User $reporter;
 
-    #[ORM\Column]
-    private ?int $handler_id = null;
+    #[ORM\Column(name: 'handler_id' ,type: 'integer',nullable: true )]
+    private ?int $handlerId = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'bugs')]
     private User  $handler;
 
-    #[ORM\Column]
-    private ?int $duplicate_id = null;
+    #[ORM\Column(name: 'duplicated_id' ,type: 'integer',nullable: true )]
+    private ?int $duplicatedId = null;
 
     #[ORM\Column]
     private ?int $priority = null;
@@ -61,6 +63,11 @@ class Bug
     #[ORM\Column]
     private ?int $eta = null;
 
+    #[ORM\Column(name: 'category_id' ,type: 'integer',nullable: true )]
+    private ?int $categoryId = null;
+
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'bugs')]
+    private Category  $category;
     #[ORM\Column]
     private ?int $bug_text_id = null;
 
@@ -96,12 +103,12 @@ class Bug
 
     public function getReporterId(): ?int
     {
-        return $this->reporter_id;
+        return $this->reporterId;
     }
 
-    public function setReporterId(int $reporter_id): static
+    public function setReporterId(int $reporterId): static
     {
-        $this->reporter_id = $reporter_id;
+        $this->reporterId = $reporterId;
 
         return $this;
     }
@@ -115,9 +122,9 @@ class Bug
         return $this->handler;
     }
 
-    public function setHandlerId(int $handler_id): static
+    public function setHandlerId(int $handlerId): static
     {
-        $this->handler_id = $handler_id;
+        $this->handlerId = $handlerId;
 
         return $this;
     }
@@ -131,7 +138,116 @@ class Bug
     public function getPriority(){
         return "Alta";
     }
+    public function setPriority(int $priority)
+    {
+        $this->priority = $priority;
+        return $this;
+    }
     public function getStatus(){
         return "Ok";
+    }
+
+    public function setId(int $id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function setDuplicatedId(int $duplicatedId)
+    {
+        $this->duplicatedId = $duplicatedId;
+    }
+
+    public function setSeverity(int $severity)
+    {
+        $this->severity = $severity;
+    }
+    public function setReproducibility(int $reproducibility)
+    {
+        $this->reproducibility = $reproducibility;
+        return $this;
+    }
+
+    public function setStatus(int $status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function setResolution(int $resolution)
+    {
+        $this->resolution = $resolution;
+        return $this;
+    }
+
+    public function setProjection(int $projection)
+    {
+        $this->projection = $projection;
+        return $this;
+    }
+
+    public function setEta(int $eta)
+    {
+        $this->eta = $eta;
+        return $this;
+    }
+
+    public function setBugTextId(int $bugTextId)
+    {
+        $this->bugTextId = $bugTextId;
+        return $this;
+    }
+
+    public function setProfileId(int $profileId)
+    {
+        $this->profileId = $profileId;
+        return $this;
+    }
+
+    public function setViewState(int $viewState)
+    {
+        $this->viewState = $viewState;
+        return $this;
+    }
+
+    public function setSummary(string $summary)
+    {
+        $this->summary = $summary;
+        return $this;
+    }
+
+    public function setSponshorshipTotal(int $sponshorshipTotal)
+    {
+        $this->sponshorshipTotal = $sponshorshipTotal;
+        return $this;
+    }
+
+    public function setSticky(int $sticky)
+    {
+        $this->sticky = $sticky;
+        return $this;
+    }
+    public function setCategoryId(int $categoryId)
+    {
+        $this->categoryId = $categoryId;
+        return $this;
+    }
+
+    public function setDateSubmitted(int $dateSubmited)
+    {
+        $this->dateSubmitted = $dateSubmited;
+        return $this;
+    }
+
+    public function setDueDat(int $dueDat)
+    {
+        $this->dueDat = $dueDat;
+        return $this;
+    }
+
+    public function setLastUpdated(int $lastUpdated)
+    {
+        $this->lastUpdated = $lastUpdated;
+        return $this;
     }
 }

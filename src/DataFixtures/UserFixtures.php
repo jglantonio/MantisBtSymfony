@@ -21,6 +21,12 @@ class UserFixtures extends Fixture
         ];
 
         foreach ($users as $user) {
+            $userExist = $manager->getRepository(User::class)
+                                 ->findOneBy(['username' => $user['username']]);
+            if($userExist){
+                continue;
+            }
+
             $manager->getConnection()->insert('mantis_user_table', [
                 'username'      => $user['username'],
                 'email'         => $user['email'],
