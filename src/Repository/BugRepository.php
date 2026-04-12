@@ -18,29 +18,29 @@ class BugRepository extends ServiceEntityRepository
 
     /**
      * Bugs by handler_id
-     * @param int $int
+     * @param int $handlerId
      * @return mixed
      */
 
-    public function getIncidenciasByHandlerId(int $int)
+    public function getIncidenciasByHandlerId(int $handlerId)
     {
         return $this->createQueryBuilder('b')
-            ->where('b.handler_id = :int')
-            ->setParameter('int', $int)
+            ->where('b.handlerId = :handlerId')
+            ->setParameter('handlerId', $handlerId)
             ->getQuery()
             ->getResult();
     }
 
     /**
      * Bugs by reporter_id
-     * @param int $int
+     * @param int $reporterId
      * @return mixed
      */
-    public function getIncidenciasByReporterId(int $int)
+    public function getIncidenciasByReporterId(int $reporterId)
     {
         return $this->createQueryBuilder('b')
-            ->where('b.reporter_id = :int')
-            ->setParameter('int', $int)
+            ->where('b.reporterId = :reporterId')
+            ->setParameter('reporterId', $reporterId)
             ->getQuery()
             ->getResult();
     }

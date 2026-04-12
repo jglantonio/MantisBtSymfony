@@ -16,63 +16,63 @@ class Bug
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id;
 
     #[ORM\Column(name: 'project_id' ,type: 'integer',nullable: true )]
-    private ?int $projectId = null;
+    private ?int $projectId;
 
     #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'bugs')]
     private Project $project;
 
     #[ORM\Column(name: 'reporter_id' ,type: 'integer',nullable: true )]
-    private ?int $reporterId = null;
+    private ?int $reporterId;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'bugs')]
     private User $reporter;
 
     #[ORM\Column(name: 'handler_id' ,type: 'integer',nullable: true )]
-    private ?int $handlerId = null;
+    private ?int $handlerId;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'bugs')]
     private User  $handler;
 
     #[ORM\Column(name: 'duplicated_id' ,type: 'integer',nullable: true )]
-    private ?int $duplicatedId = null;
+    private ?int $duplicatedId;
 
     #[ORM\Column]
-    private ?int $priority = null;
+    private ?int $priority;
 
     #[ORM\Column(name: 'last_updated' ,type: 'integer',nullable: true )]
-    private ?int $lastUpdated = null;
+    private ?int $lastUpdated;
 
     #[ORM\Column(name: 'date_submitted' ,type: 'integer',nullable: true )]
-    private ?int $dateSubmitted = null;
+    private ?int $dateSubmitted;
+
+    #[ORM\Column(name: 'bug_text_id' ,type: 'integer',nullable: true )]
+    private ?int $bugTextId;
 
     #[ORM\Column]
-    private ?int $severity = null;
+    private ?int $severity;
 
     #[ORM\Column]
-    private ?int $reproducibility = null;
+    private ?int $reproducibility;
 
     #[ORM\Column]
-    private ?int $status = null;
+    private ?int $status;
 
     #[ORM\Column]
-    private ?int $resolution = null;
+    private ?int $resolution;
 
     #[ORM\Column]
-    private ?int $eta = null;
+    private ?int $eta;
 
     #[ORM\Column(name: 'category_id' ,type: 'integer',nullable: true )]
-    private ?int $categoryId = null;
+    private ?int $categoryId;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'bugs')]
     private Category  $category;
     #[ORM\Column]
-    private ?int $bug_text_id = null;
-
-    #[ORM\Column]
-    private ?string $summary = null;
+    private ?string $summary;
 
     public function getId(): ?int
     {
@@ -94,9 +94,9 @@ class Bug
         return $this->summary;
     }
 
-    public function setProjectId(int $project_id): static
+    public function setProjectId(int $projectId): static
     {
-        $this->project_id = $project_id;
+        $this->projectId = $projectId;
 
         return $this;
     }
