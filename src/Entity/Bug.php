@@ -36,8 +36,8 @@ class Bug
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'bugs')]
     private User  $handler;
 
-    #[ORM\Column(name: 'duplicated_id' ,type: 'integer',nullable: true )]
-    private ?int $duplicatedId;
+    #[ORM\Column(name: 'duplicate_id' ,type: 'integer',nullable: true )]
+    private ?int $duplicateId;
 
     #[ORM\Column]
     private ?int $priority;
