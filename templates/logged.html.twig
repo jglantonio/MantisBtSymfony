@@ -1,6 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="light">
     <head>
+        <script>
+            // Aplica el tema guardado antes de pintar para evitar parpadeo
+            (function () {
+                var t = localStorage.getItem('theme') || 'light';
+                document.documentElement.setAttribute('data-bs-theme', t);
+            })();
+        </script>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
@@ -30,28 +37,31 @@
         {# SIDEBAR #}
         <aside class="sidebar">
             <div class="sidebar__logo">
-                <span class="logo-icon">⬡</span>
+                <span class="logo-icon"><i class="fa-solid fa-bug"></i></span>
                 <span class="logo-text">BugDesk</span>
             </div>
             <nav class="sidebar__nav">
                 <a href="/main/menu" class="nav-item nav-item">
                     <span class="nav-icon"><i class="fa-solid fa-bug"></i></span> Incidencias
                 </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon"><i class="fa-solid fa-folder"></i></span> Proyectos
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon"><i class="fa-solid fa-users"></i></span> Usuarios
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon"><i class="fa-solid fa-file"></i></span> Informes
+                </a>
                 <a href="/category" class="nav-item nav-item">
                     <span class="nav-icon"><i class="fa-solid fa-tags"></i></span> Categorias
                 </a>
-                {#         <a href="#" class="nav-item">
-                    <span class="nav-icon">◈</span> Proyectos
-                </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">◉</span> Usuarios
+                    <span class="nav-icon"><i class="fa-solid fa-gear"></i></span> Configuración
                 </a>
-                <a href="#" class="nav-item">
-                    <span class="nav-icon">◎</span> Informes
-                </a>
-                <a href="#" class="nav-item">
-                    <span class="nav-icon">◌</span> Configuración
-                </a>
+                <button type="button" id="theme-toggle" class="nav-item" style="background:none;border:none;width:100%;text-align:left;cursor:pointer;font:inherit;">
+                    <span class="nav-icon"><i class="fa-solid fa-moon"></i></span> <span id="theme-toggle-label">Tema oscuro</span>
+                </button>
             </nav>
             <div class="sidebar__user">
                 <div class="user-avatar">{{ app.user ? app.user.username|first|upper : 'A' }}</div>
@@ -59,9 +69,10 @@
                     <span class="user-name">{{ app.user ? app.user.username : 'Admin' }}</span>
                     <span class="user-role">Administrador</span>
                 </div>
-                <a href="{{ path('app_logout') }}" class="logout-btn" title="Cerrar sesión">⏻</a>
+                <a href="{{ path('app_logout') }}" class="logout-btn" title="Cerrar sesión">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
             </div>
-                #}
         </aside>
 
         {# MAIN CONTENT #}
@@ -80,5 +91,29 @@
 
         {% block body %}{% endblock %}
         </main>
+    </div>
+
+    <script>
+        (function () {
+            var btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            var icon = btn.querySelector('i');
+            var label = document.getElementById('theme-toggle-label');
+
+            function sync() {
+                var dark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+                icon.className = dark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+                label.textContent = dark ? 'Tema claro' : 'Tema oscuro';
+            }
+            sync();
+
+            btn.addEventListener('click', function () {
+                var next = document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-bs-theme', next);
+                localStorage.setItem('theme', next);
+                sync();
+            });
+        })();
+    </script>
     </body>
 </html>
