@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use AllowDynamicProperties;
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[AllowDynamicProperties]
@@ -48,6 +50,27 @@ class Project
 
     private Category $category;
 
+    /**
+     * Lado inverso de la relación ManyToMany. El propietario es User::$projects,
+     * que mapea la tabla intermedia mantis_project_user_list_table.
+     *
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'projects')]
+    private Collection $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
 
     public function setName(string $name): static
     {

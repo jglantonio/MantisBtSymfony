@@ -15,13 +15,4 @@ class ProjectRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Project::class);
     }
-
-    public function findByUser($userId){
-        return $this->createQueryBuilder('p')
-            ->join('p.user', 'u')
-            ->where('u.user_id = :userId')
-            ->setParameter('userId', $userId)
-            ->getQuery()
-            ->getResult();
-    }
 }
