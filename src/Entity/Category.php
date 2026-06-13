@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\CategoryStatus;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,11 +15,14 @@ class Category
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $projectId = null;
 
-    #[ORM\Column]
-    private ?int $userId = null;
+    #[ORM\ManyToOne(targetEntity: Project::class)]
+    #[ORM\JoinColumn(name:'project_id',referencedColumnName: 'id')]
+    private Project $project;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name:'user_id',referencedColumnName: 'id')]
+    private User $user;
 
     #[ORM\Column(length: 128)]
     private ?string $name = null;
@@ -31,29 +35,6 @@ class Category
         return $this->id;
     }
 
-    public function getProjectId(): ?int
-    {
-        return $this->projectId;
-    }
-
-    public function setProjectId(int $projectId): static
-    {
-        $this->projectId = $projectId;
-
-        return $this;
-    }
-
-    public function getUserId(): ?int
-    {
-        return $this->userId;
-    }
-
-    public function setUserId(int $userId): static
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
 
     public function getName(): ?string
     {
@@ -67,12 +48,12 @@ class Category
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getStatus():int
     {
         return $this->status;
     }
 
-    public function setStatus(int $status): static
+    public function setStatus(int $status)
     {
         $this->status = $status;
 
@@ -83,5 +64,25 @@ class Category
     {
         $this->id = $categoryId;
         return $this;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
+    }
+
+    public function getProject(): Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(Project $project): void
+    {
+        $this->project = $project;
     }
 }
