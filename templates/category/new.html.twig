@@ -1,0 +1,48 @@
+{% extends 'logged.html.twig' %}
+
+{% block title %}Editar categoría{% endblock %}
+
+{% block body %}
+
+    <div class="container my-4">
+        <h1 class="mb-4">Editar categoría</h1>
+
+        <form method="post" action="{{ path('app_category_store') }}">
+
+            <div class="mb-3">
+                <label for="category_name" class="form-label">Nombre</label>
+                <input type="text"
+                       id="category_name"
+                       name="name"
+                       class="form-control"
+                       value=""
+                       required>
+            </div>
+            <div class="mb-3">
+                <label for="category_project" class="form-label">Proyecto</label>
+                <select id="category_project" name="project_id" class="form-select">
+                    {% for project in projects %}
+                        <option value="{{ project.id }}">
+                            {{ project.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-check mb-3">
+                <input type="checkbox"
+                       id="category_status"
+                       name="status"
+                       value="1"
+                       class="form-check-input">
+                <label for="category_status" class="form-check-label">Categoría deprecada</label>
+            </div>
+
+            <input type="hidden" name="_token" value="{{ csrf_token('new') }}">
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{{ path('app_category_index') }}" class="btn btn-secondary">Volver</a>
+        </form>
+    </div>
+
+{% endblock %}
