@@ -8,6 +8,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('css/incidencias.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+              crossorigin="anonymous" referrerpolicy="no-referrer">
 
         {% block stylesheets %}
         {% endblock %}
@@ -32,11 +34,11 @@
                 <span class="logo-text">BugDesk</span>
             </div>
             <nav class="sidebar__nav">
-                <a href="/bug" class="nav-item nav-item">
-                    <span class="nav-icon">▣</span> Incidencias
+                <a href="/main/menu" class="nav-item nav-item">
+                    <span class="nav-icon"><i class="fa-solid fa-bug"></i></span> Incidencias
                 </a>
                 <a href="/category" class="nav-item nav-item">
-                    <span class="nav-icon">▣</span> Categorias
+                    <span class="nav-icon"><i class="fa-solid fa-tags"></i></span> Categorias
                 </a>
                 {#         <a href="#" class="nav-item">
                     <span class="nav-icon">◈</span> Proyectos

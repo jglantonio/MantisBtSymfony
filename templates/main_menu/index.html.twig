@@ -1,74 +1,16 @@
 {% extends 'logged.html.twig' %}
 
 {% block title %}Gestión de Incidencias{% endblock %}
+{% block titles %}Gestión de Incidencias{% endblock %}
+{% block subtitle %}Mantisbt > Main menu{% endblock %}
+{% block headerbuttons %}
+    <a href="/bug/create" class="btn btn-primary">Crear incidencia</a>
+{% endblock %}
 
 {% block stylesheets %}
 {% endblock %}
 
         {% block body %}
-
-        {# MAIN CONTENT #}
-        <main class="main">
-
-            {# HEADER #}
-            <header class="main__header">
-                <div class="header-left">
-                    <h1 class="page-title">Incidencias</h1>
-                    <span class="page-subtitle">Panel de control · MantisBT</span>
-                </div>
-                <div class="header-right">
-                    <a href="/bug/create" class="btn btn--primary">+ Nueva incidencia</a>
-                </div>
-            </header>
-
-            {# STATS
-            <section class="stats">
-                <div class="stat-card stat-card--red">
-                    <span class="stat-label">Críticas</span>
-                    <span class="stat-number">{{ stats.criticas ?? 0 }}</span>
-                    <span class="stat-trend">↑ Alta prioridad</span>
-                </div>
-                <div class="stat-card stat-card--amber">
-                    <span class="stat-label">En progreso</span>
-                    <span class="stat-number">{{ stats.en_progreso ?? 0 }}</span>
-                    <span class="stat-trend">→ Asignadas</span>
-                </div>
-                <div class="stat-card stat-card--blue">
-                    <span class="stat-label">Abiertas</span>
-                    <span class="stat-number">{{ stats.abiertas ?? 0 }}</span>
-                    <span class="stat-trend">↗ Pendientes</span>
-                </div>
-                <div class="stat-card stat-card--green">
-                    <span class="stat-label">Resueltas</span>
-                    <span class="stat-number">{{ stats.resueltas ?? 0 }}</span>
-                    <span class="stat-trend">✓ Este mes</span>
-                </div>
-            </section>
-            #}
-            {# FILTROS
-            <section class="filters">
-                <div class="filters__search">
-                    <span class="search-icon">⌕</span>
-                    <input type="text" placeholder="Buscar incidencia..." class="search-input">
-                </div>
-                <div class="filters__controls">
-                    <select class="filter-select">
-                        <option>Todos los estados</option>
-                        <option>Abierta</option>
-                        <option>En progreso</option>
-                        <option>Resuelta</option>
-                        <option>Cerrada</option>
-                    </select>
-                    <select class="filter-select">
-                        <option>Todas las prioridades</option>
-                        <option>Crítica</option>
-                        <option>Alta</option>
-                        <option>Normal</option>
-                        <option>Baja</option>
-                    </select>
-                </div>
-            </section>
-            #}
             {# TABLA DE INCIDENCIAS #}
             <section class="table-section">
                 <table class="incidents-table">
@@ -106,14 +48,12 @@
                                 <td class="incident-assignee">{{ bug.handler.name ?? '—' }}</td>
                                 <td class="">{{ bug.lastUpdated ?? '—' }}</td>
                                 <td class="">{{ bug.dateSubmitted ?? '—' }}</td>
-
+                                <td>
+                                    <a href="/bug/edit" class="btn btn-primary">Editar</a>
+                                    <a href="/bug/show" class="btn btn-primary">Ver</a>
                                 </td>
                             </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-            </section>
-        </main>
-#}
-    </div>
 {% endblock %}
