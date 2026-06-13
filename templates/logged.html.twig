@@ -32,8 +32,11 @@
                 <span class="logo-text">BugDesk</span>
             </div>
             <nav class="sidebar__nav">
-                <a href="#" class="nav-item nav-item--active">
+                <a href="/bug" class="nav-item nav-item">
                     <span class="nav-icon">▣</span> Incidencias
+                </a>
+                <a href="/category" class="nav-item nav-item">
+                    <span class="nav-icon">▣</span> Categorias
                 </a>
                 {#         <a href="#" class="nav-item">
                     <span class="nav-icon">◈</span> Proyectos
@@ -59,6 +62,21 @@
                 #}
         </aside>
 
+        {# MAIN CONTENT #}
+        <main class="main">
+
+            {# HEADER #}
+            <header class="main__header">
+                <div class="header-left">
+                    <h1 class="page-title">{%block titles%}{% endblock %}</h1>
+                    <span class="page-subtitle">{%block subtitle%}{% endblock %}</span>
+                </div>
+                <div class="header-right">
+                    {% block headerbuttons %}{% endblock %}
+                </div>
+            </header>
+
         {% block body %}{% endblock %}
+        </main>
     </body>
 </html>
