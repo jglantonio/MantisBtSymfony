@@ -32,20 +32,18 @@
         {% for bug in incidencias %}
             <tr class="incident-row">
                 <td class="incident-id">#{{ bug.id }}</td>
-                <td class="incident-summary">{{ bug.summary }}</td>
-                <td class="incident-project">{{ bug.project.name }}</td>
-                <td class="incident-project">{{ bug.reporter.username }}</td>
+                <td class="incident-summary">{{ bug.getSummary() }}</td>
+                <td class="incident-project">{{ bug.getProject().getName() }}</td>
+                <td class="incident-project">{{ bug.getReporter.getUsername() }}</td>
                 <td>
-                                    <span class="badge badge--{{ bug.priority|lower }}">
-                                        {{ bug.priority }}
-                                    </span>
+                       <span class="tag tag-{{ bug.getPriority() | lower }}">{{ bug.getPriorityName() ?? '-' }}</span>
                 </td>
                 <td>
-                                    <span class="status status--{{ bug.status|lower }}">
-                                        {{ bug.status }}
-                                    </span>
+                    <span class="status status--{{ bug.getStatus()|lower }}">
+                        {{ bug.getStatus() }}
+                    </span>
                 </td>
-                <td class="incident-assignee">{{ bug.handler.name ?? '—' }}</td>
+                <td class="incident-assignee">{{ bug.getHandler().getUsername() }}</td>
                 <td class="">{{ bug.lastUpdated ?? '—' }}</td>
                 <td class="">{{ bug.dateSubmitted ?? '—' }}</td>
                 <td>

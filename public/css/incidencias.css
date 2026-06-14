@@ -503,24 +503,26 @@ main > section{
     background: var(--blue-dim);
 }
 
-/* ---- BADGES (prioridad) ---- */
-.badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 3px 8px;
+.tag{
+    border: 1px solid black;
+    padding: 3px 3px;
     border-radius: 4px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    white-space: nowrap;
 }
-
-.badge--critica { background: var(--red-dim);   color: var(--accent-red);   border: 1px solid rgba(255,59,78,0.3); }
-.badge--alta    { background: var(--amber-dim); color: var(--accent-amber); border: 1px solid rgba(255,176,32,0.3); }
-.badge--normal  { background: var(--blue-dim);  color: var(--accent-blue);  border: 1px solid rgba(59,158,255,0.3); }
-.badge--baja    { background: rgba(74,82,96,0.3); color: var(--text-secondary); border: 1px solid var(--border); }
-
+.tag-10{
+    background-color:darkgrey;
+}
+.tag-20{
+    background-color:greenyellow;
+}
+.tag-30 {
+    background-color:deepskyblue;
+}
+.tag-40 {
+    background-color:orange;
+}
+.tag-50 {
+    background-color:red;
+}
 /* ---- STATUS ---- */
 .status {
     display: inline-flex;

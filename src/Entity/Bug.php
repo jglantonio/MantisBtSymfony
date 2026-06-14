@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use AllowDynamicProperties;
+use App\Enum\BugPriority;
 use App\Repository\BugRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -135,7 +136,10 @@ class Bug
         return date('Y-m-d H:i:s', $this->dateSubmitted);
     }
     public function getPriority(){
-        return "Alta";
+        return $this->priority;
+    }
+    public function getPriorityName(){
+        return BugPriority::getPriorityName($this->priority);
     }
     public function setPriority(int $priority)
     {
@@ -143,7 +147,7 @@ class Bug
         return $this;
     }
     public function getStatus(){
-        return "Ok";
+        return $this->status;
     }
 
     public function setId(int $id)

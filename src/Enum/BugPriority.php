@@ -15,15 +15,16 @@ enum BugPriority: int
     case Urgent = 50;
     case Immediate = 60;
 
-    public function label(): string
+    public static function getPriorityName($priority): string
     {
-        return match ($this) {
-            self::None => 'Ninguna',
-            self::Low => 'Baja',
-            self::Normal => 'Normal',
-            self::High => 'Alta',
-            self::Urgent => 'Urgente',
-            self::Immediate => 'Inmediata',
+        return match ($priority) {
+            10 => 'Ninguna',
+            20 => 'Baja',
+            30 => 'Normal',
+            40 => 'Alta',
+            50 => 'Urgente',
+            60 => 'Inmediata',
+            default => '',
         };
     }
 }
