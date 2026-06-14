@@ -20,4 +20,9 @@ class CategoryRepository extends ServiceEntityRepository
 
     }
 
+    public function findById(int $id)
+    {
+        return $this->findOneBy(['id' => $id]);
+    }
+
 }

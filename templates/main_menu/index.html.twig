@@ -49,8 +49,8 @@
                                 <td class="">{{ bug.lastUpdated ?? '—' }}</td>
                                 <td class="">{{ bug.dateSubmitted ?? '—' }}</td>
                                 <td>
-                                    <a href="/bug/edit" class="btn btn-primary">Editar</a>
-                                    <a href="/bug/show" class="btn btn-primary">Ver</a>
+                                    <a href="/bug/edit/{{bug.id}}" class="btn btn-primary">Editar</a>
+                                    <a href="/bug/show/{{bug.id}}" class="btn btn-primary">Ver</a>
                                 </td>
                             </tr>
                     {% endfor %}

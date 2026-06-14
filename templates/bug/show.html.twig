@@ -1,0 +1,123 @@
+{% extends 'logged.html.twig' %}
+
+{% block title %}Incidencia #{{ bug.getId() }}{% endblock %}
+
+{% block titles %}Incidencia #{{ bug.getId() }}{% endblock %}
+{% block subtitle %}Incidencias › {{ bug.getProject().getName() }} › {{ bug.getSummary() }}{% endblock %}
+
+{% block headerbuttons %}
+    <a href="{{ path('app_main_menu') }}" class="btn btn-outline-secondary">
+        <i class="fa-solid fa-arrow-left me-1"></i> Volver
+    </a>
+{% endblock %}
+
+{% block body %}
+    <section class="row" >
+
+        {# ---- Cabecera de la incidencia ---- #}
+        <div class="card shadow-sm mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center bg-transparent">
+                <h5 class="mb-0">
+                    <i class="fa-solid fa-bug text-danger me-2"></i>{{ bug.getSummary() }}
+                </h5>
+                <span class="badge rounded-pill bg-primary fs-6">{{ bug.getStatus() }}</span>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase">
+                            <i class="fa-solid fa-folder me-1"></i> Proyecto
+                        </div>
+                        <div class="fw-semibold">{{ bug.getProject().getName() }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase">
+                            <i class="fa-solid fa-tags me-1"></i> Categoría
+                        </div>
+                        <div class="fw-semibold">{{ bug.getCategory().getName() }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase">
+                            <i class="fa-solid fa-user-check me-1"></i> Asignado a
+                        </div>
+                        <div class="fw-semibold">{{ bug.getHandler().getUserName() }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase">
+                            <i class="fa-solid fa-flag me-1"></i> Prioridad
+                        </div>
+                        <div class="fw-semibold">{{ bug.getPriority() }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase">
+                            <i class="fa-regular fa-clock me-1"></i> Creada
+                        </div>
+                        <div class="fw-semibold">{{ bug.getDateSubmitted() }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-muted small text-uppercase">
+                            <i class="fa-solid fa-rotate me-1"></i> Última actualización
+                        </div>
+                        <div class="fw-semibold">{{ bug.getLastUpdated() }}</div>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="text-muted small text-uppercase mb-2">
+                    <i class="fa-solid fa-tag me-1"></i> Etiquetas
+                </div>
+                {% if tags is empty %}
+                    <span class="text-muted">Sin etiquetas.</span>
+                {% else %}
+                    {% for tag in tags %}
+                        <span class="badge rounded-pill bg-info-subtle text-info-emphasis border border-info-subtle me-1">
+                            <i class="fa-solid fa-tag me-1"></i>{{ tag.name }}
+                        </span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        {# ---- Notas / seguimiento ---- #}
+        <h5 class="mb-3">
+            <i class="fa-regular fa-comments me-2"></i>Notas
+            <span class="badge bg-secondary">{{ notes|length }}</span>
+        </h5>
+
+        {% if notes is empty %}
+            <div class="alert alert-light border text-center text-muted">
+                <i class="fa-regular fa-comment-dots me-1"></i> Aún no hay notas en esta incidencia.
+            </div>
+        {% else %}
+            {% for note in notes %}
+                <div class="card shadow-sm mb-2">
+                    <div class="card-body py-2">
+                        <p class="mb-1" style="white-space: pre-wrap;">{{ note.text }}</p>
+                        <small class="text-muted">
+                            <i class="fa-regular fa-user me-1"></i>{{ note.reporterId }}
+                            <i class="fa-regular fa-clock ms-2 me-1"></i>{{ note.dateSubmitted }}
+                        </small>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {# ---- Añadir nota (la ruta POST se cablea en el incremento 2) ---- #}
+        <div class="card shadow-sm mt-3">
+            <div class="card-body">
+                <form action="/bug/{{ bug.getId() }}/note" method="post">
+                    <label for="note" class="form-label fw-semibold">
+                        <i class="fa-solid fa-pen me-1"></i> Añadir nota
+                    </label>
+                    <textarea name="note" id="note" rows="3" class="form-control mb-2"
+                              placeholder="Escribe un comentario…" required></textarea>
+                    <input type="hidden" name="_token" value="{{ csrf_token('add-note') }}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-regular fa-paper-plane me-1"></i> Comentar
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </section>
+{% endblock %}

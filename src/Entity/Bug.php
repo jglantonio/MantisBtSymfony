@@ -8,7 +8,6 @@ use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bundle\SecurityBundle\Security;
 
-#[AllowDynamicProperties]
 #[ORM\Entity(repositoryClass: BugRepository::class)]
 #[ORM\Table(name : 'mantis_bug_table')]
 class Bug
@@ -18,13 +17,13 @@ class Bug
     #[ORM\Column]
     private ?int $id;
 
-    #[ORM\Column(name: 'project_id' ,type: 'integer',nullable: true )]
+    #[ORM\Column(name: 'project_id' ,type: 'integer',nullable: false )]
     private ?int $projectId;
 
     #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'bugs')]
     private Project $project;
 
-    #[ORM\Column(name: 'reporter_id' ,type: 'integer',nullable: true )]
+    #[ORM\Column(name: 'reporter_id' ,type: 'integer',nullable: false )]
     private ?int $reporterId;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'bugs')]
@@ -37,7 +36,7 @@ class Bug
     private User  $handler;
 
     #[ORM\Column(name: 'duplicate_id' ,type: 'integer',nullable: true )]
-    private ?int $duplicateId;
+    private ?int $duplicateId = 0;
 
     #[ORM\Column]
     private ?int $priority;
@@ -49,22 +48,22 @@ class Bug
     private ?int $dateSubmitted;
 
     #[ORM\Column(name: 'bug_text_id' ,type: 'integer',nullable: true )]
-    private ?int $bugTextId;
+    private ?int $bugTextId = 0;
 
     #[ORM\Column]
-    private ?int $severity;
+    private ?int $severity = 0;
 
     #[ORM\Column]
-    private ?int $reproducibility;
+    private ?int $reproducibility = 0;
 
     #[ORM\Column]
-    private ?int $status;
+    private ?int $status ;
 
     #[ORM\Column]
-    private ?int $resolution;
+    private ?int $resolution = 0;
 
     #[ORM\Column]
-    private ?int $eta;
+    private ?int $eta = 0;
 
     #[ORM\Column(name: 'category_id' ,type: 'integer',nullable: true )]
     private ?int $categoryId;
@@ -249,5 +248,30 @@ class Bug
     {
         $this->lastUpdated = $lastUpdated;
         return $this;
+    }
+
+    public function setProject(Project $project): void
+    {
+        $this->project = $project;
+    }
+
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+    }
+
+    public function setHandler(User $handler)
+    {
+        $this->handler = $handler;
+    }
+
+    public function setReporter(User $reporter)
+    {
+        $this->reporter = $reporter;
+    }
+
+    public function getCategory(): Category
+    {
+        return $this->category;
     }
 }
