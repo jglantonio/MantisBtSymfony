@@ -19,10 +19,16 @@ use Symfony\Component\Routing\Attribute\Route;
 final class BugController extends AbstractController
 {
     #[Route('/bug', name: 'app_bug')]
-    public function index(): Response
+    public function index(BugRepository $BugRepository,Security $security): Response
     {
+        $user = $security->getUser();
+        $inciencias = array_merge(
+            $BugRepository->getIncidenciasByReporterId($user->getId()),
+            $BugRepository->getIncidenciasByHandlerId($user->getId())
+        );
         return $this->render('bug/index.html.twig', [
             'controller_name' => 'BugController',
+            'incidencias' => $inciencias
         ]);
     }
 

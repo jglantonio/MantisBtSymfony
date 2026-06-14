@@ -41,10 +41,11 @@
                 <span class="logo-text">BugDesk</span>
             </div>
             <nav class="sidebar__nav">
-                <a href="/main/menu" class="nav-item nav-item">
+                <a href="/bug" class="nav-item nav-item">
                     <span class="nav-icon"><i class="fa-solid fa-bug"></i></span> Incidencias
                 </a>
-                <a href="#" class="nav-item">
+                {#
+                <a href="#" class="nav-item disabled">
                     <span class="nav-icon"><i class="fa-solid fa-folder"></i></span> Proyectos
                 </a>
                 <a href="#" class="nav-item">
@@ -52,13 +53,13 @@
                 </a>
                 <a href="#" class="nav-item">
                     <span class="nav-icon"><i class="fa-solid fa-file"></i></span> Informes
-                </a>
+                </a> #}
                 <a href="/category" class="nav-item nav-item">
                     <span class="nav-icon"><i class="fa-solid fa-tags"></i></span> Categorias
-                </a>
+                </a>{#
                 <a href="#" class="nav-item">
                     <span class="nav-icon"><i class="fa-solid fa-gear"></i></span> Configuración
-                </a>
+                </a> #}
                 <button type="button" id="theme-toggle" class="nav-item" style="background:none;border:none;width:100%;text-align:left;cursor:pointer;font:inherit;">
                     <span class="nav-icon"><i class="fa-solid fa-moon"></i></span> <span id="theme-toggle-label">Tema oscuro</span>
                 </button>
