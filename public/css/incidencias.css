@@ -120,6 +120,8 @@ main > section{
     position: fixed;
     top: 0; left: 0; bottom: 0;
     z-index: 10;
+    transition: width 0.15s ease;
+    overflow: hidden;
 }
 
 .sidebar__logo {
@@ -235,6 +237,43 @@ main > section{
 }
 .logout-btn:hover { color: var(--accent-red); }
 
+/* ---- SIDEBAR COLAPSADA (solo iconos) ---- */
+.sidebar__logo { cursor: pointer; user-select: none; }
+
+.dashboard.sidebar-collapsed { --sidebar-width: 64px; }
+
+/* ocultar las etiquetas de texto */
+.dashboard.sidebar-collapsed .logo-text,
+.dashboard.sidebar-collapsed .user-info,
+.dashboard.sidebar-collapsed #theme-toggle-label { display: none; }
+
+/* los textos de los nav-item son nodos de texto sueltos: font-size:0 los oculta
+   y restauramos el tamaño del icono */
+.dashboard.sidebar-collapsed .nav-item {
+    font-size: 0;
+    gap: 0;
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+.dashboard.sidebar-collapsed .nav-icon { font-size: 16px; }
+
+.dashboard.sidebar-collapsed .sidebar__logo {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+    gap: 0;
+}
+
+/* avatar y logout apilados y centrados */
+.dashboard.sidebar-collapsed .sidebar__user {
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 0;
+    padding-right: 0;
+}
+.dashboard.sidebar-collapsed .sidebar__user .nav-item { flex-grow: 0; }
+
 /* ---- MAIN ---- */
 .main {
     margin-left: var(--sidebar-width);
@@ -243,6 +282,7 @@ main > section{
     flex-direction: column;
     min-height: 100vh;
     padding: 0 32px 40px;
+    transition: margin-left 0.15s ease;
 }
 
 /* ---- HEADER ---- */

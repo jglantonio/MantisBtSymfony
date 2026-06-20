@@ -63,17 +63,22 @@
                 <a href="/user" class="nav-item">
                     <span class="nav-icon"><i class="fa-solid fa-users"></i></span> Usuarios
                 </a>
-
+                <a href="/config" class="nav-item">
+                    <span class="nav-icon"><i class="fa-solid fa-sliders"></i></span> Configuración
+                </a>
                 <button type="button" id="theme-toggle" class="nav-item" style="background:none;border:none;width:100%;text-align:left;cursor:pointer;font:inherit;">
                     <span class="nav-icon"><i class="fa-solid fa-moon"></i></span> <span id="theme-toggle-label">Tema oscuro</span>
                 </button>
             </nav>
+
             <div class="sidebar__user">
-                <div class="user-avatar">{{ app.user ? app.user.username|first|upper : 'A' }}</div>
-                <div class="user-info">
-                    <span class="user-name">{{ app.user ? app.user.username : 'Admin' }}</span>
-                    <span class="user-role">Administrador</span>
-                </div>
+                <a href="/profile" class="nav-item m-0 p-0 flex-grow-1" >
+                    <div class="user-avatar">{{ app.user ? app.user.username|first|upper : 'A' }}</div>
+                    <div class="user-info">
+                        <span class="user-name">{{ app.user ? app.user.username : 'Admin' }}</span>
+                        <span class="user-role">Administrador</span>
+                    </div>
+                </a>
                 <a href="{{ path('app_logout') }}" class="logout-btn" title="Cerrar sesión">
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </a>
@@ -118,6 +123,44 @@
                 localStorage.setItem('theme', next);
                 sync();
             });
+
+
+        })();
+
+        // Sidebar colapsable: click en el logo alterna "solo iconos";
+        // en ventanas pequeñas se fuerza el modo iconos.
+        (function () {
+            var dashboard = document.querySelector('.dashboard');
+            var logo = document.querySelector('.sidebar__logo');
+            if (!dashboard) return;
+
+            var MOBILE = 768;
+
+            function apply(collapsed) {
+                dashboard.classList.toggle('sidebar-collapsed', collapsed);
+            }
+            function savedPref() {
+                return localStorage.getItem('sidebar') === '1';
+            }
+            function syncToViewport() {
+                if (window.innerWidth <= MOBILE) {
+                    apply(true);          // ventana pequeña -> solo iconos
+                } else {
+                    apply(savedPref());   // restaura la preferencia del usuario
+                }
+            }
+
+            syncToViewport();
+            window.addEventListener('resize', syncToViewport);
+
+            if (logo) {
+                logo.title = 'Plegar / desplegar menú';
+                logo.addEventListener('click', function () {
+                    var collapsed = !dashboard.classList.contains('sidebar-collapsed');
+                    apply(collapsed);
+                    localStorage.setItem('sidebar', collapsed ? '1' : '0');
+                });
+            }
         })();
     </script>
     </body>
