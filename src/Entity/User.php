@@ -78,6 +78,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->username;
     }
+    public function getRealName(): ?string
+    {
+        return $this->realname;
+    }
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+    public function getEnabled(): ?string
+    {
+        return $this->enabled;
+    }
+    public function getProtected(): ?string
+    {
+        return $this->protected;
+    }
+    public function getAccessLevel(): ?string
+    {
+        return $this->access_level;
+    }
 
     public function setUsername(string $username): static
     {

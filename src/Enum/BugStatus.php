@@ -16,6 +16,19 @@ enum BugStatus: int
     case Resolved = 80;
     case Closed = 90;
 
+    public static function getStatusName(?int $status) : string
+    {
+        return match ($status) {
+            10 => 'Nueva',
+            20 => 'Feedback',
+            30 => 'Reconocida',
+            40 => 'Confirmada',
+            50 => 'Asignada',
+            80 => 'Resuelta',
+            90 => 'Cerrada',
+        };
+    }
+
     public function label(): string
     {
         return match ($this) {

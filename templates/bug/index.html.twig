@@ -4,7 +4,7 @@
 {% block titles %}Listado de inidencias{% endblock %}
 {% block subtitle %}Mantisbt > Incidencias > Listado de inidencias{% endblock %}
 {% block headerbuttons %}
-    <a href="/bug/create" class="btn btn-primary">Listado de inidencias</a>
+    <a href="/bug/create" class="btn btn-primary">Crear incidencia</a>
 {% endblock %}
 
 {% block stylesheets %}
@@ -36,19 +36,21 @@
                 <td class="incident-project">{{ bug.getProject().getName() }}</td>
                 <td class="incident-project">{{ bug.getReporter.getUsername() }}</td>
                 <td>
-                       <span class="tag tag-{{ bug.getPriority() | lower }}">{{ bug.getPriorityName() ?? '-' }}</span>
+                                    <span class="tag tag-{{ bug.priority|lower }}">
+                                        {{ bug.getPriorityName }}
+                                    </span>
                 </td>
                 <td>
-                    <span class="status status--{{ bug.getStatus()|lower }}">
-                        {{ bug.getStatus() }}
-                    </span>
+                                    <span class="tag tag-{{ bug.status|lower }}">
+                                        {{ bug.getStatusName }}
+                                    </span>
                 </td>
                 <td class="incident-assignee">{{ bug.getHandler().getUsername() }}</td>
                 <td class="">{{ bug.lastUpdated ?? '—' }}</td>
                 <td class="">{{ bug.dateSubmitted ?? '—' }}</td>
-                <td>
-                    <a href="/bug/edit/{{bug.id}}" class="btn btn-primary">Editar</a>
-                    <a href="/bug/show/{{bug.id}}" class="btn btn-primary">Ver</a>
+                <td style="display:flex;">
+                    <a href="/bug/edit/{{bug.id}}" class="btn btn-primary m-1"><i class="fa fa-edit"></i></a>
+                    <a href="/bug/show/{{bug.id}}" class="btn btn-primary m-1"><i class="fa fa-eye"></i></a>
                 </td>
             </tr>
         {% endfor %}

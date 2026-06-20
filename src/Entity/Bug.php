@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use AllowDynamicProperties;
 use App\Enum\BugPriority;
+use App\Enum\BugStatus;
 use App\Repository\BugRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -148,6 +149,10 @@ class Bug
     }
     public function getStatus(){
         return $this->status;
+    }
+
+    public function getStatusName(){
+        return BugStatus::getStatusName($this->status);
     }
 
     public function setId(int $id)

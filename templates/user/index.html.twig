@@ -1,0 +1,56 @@
+{% extends 'logged.html.twig' %}
+
+{% block title %}Gestión de usuarios{% endblock %}
+{% block titles %}Listado de usuarios{% endblock %}
+{% block subtitle %}Mantisbt > Usuarios > Listado de usuarios{% endblock %}
+{% block headerbuttons %}
+    <a href="/user/new" class="btn btn-primary">Crear usuario</a>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+        {% block body %}
+            {# TABLA DE INCIDENCIAS #}
+<section class="table-section">
+
+
+
+    <table class="incidents-table">
+        <thead>
+        <tr>
+            <th>#ID</th>
+            <th>Alias</th>
+            <th>Realname</th>
+            <th>Email</th>
+            <th>Habilitado</th>
+            <th>Nivel de accesso</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.realname }}</td>
+                <td>{{ user.email }}</td>
+                {% if user.enabled == 1 %}
+                <td><i class="tag tag-20 fa fa-check"></i></td>
+                {%  else %}
+                    <td><i class="tag tag-40 fa fa-close"></i></td>
+                {% endif %}
+                <td>{{ user.accessLevel }}</td>
+                <td>
+                    {% if user.enabled == 1 %}
+                        <a href="/user/{{ user.id }}/block/0" title="Bloquear usuario" class="btn btn-danger p-2"><i class="fa-solid fa-user-lock"></i></a>
+                    {%  else %}
+                        <a href="/user/{{ user.id }}/block/1" title="Habilitar usuario" class="btn btn-green p-2"><i class="fa-solid fa-unlock"></i></a>
+                    {% endif %}
+                    <a href="/user/{{ user.id }}/edit" title="Editar usuario" class="btn btn-primary p-2"><i class="fa-solid fa-edit"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}

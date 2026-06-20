@@ -502,7 +502,12 @@ main > section{
     color: var(--accent-blue);
     background: var(--blue-dim);
 }
-
+.btn-green{
+    background-color:lawngreen;
+}
+.btn-green:hover{
+    background-color: rgb(92 174 8);
+}
 .tag{
     border: 1px solid black;
     padding: 3px 3px;

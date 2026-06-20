@@ -39,7 +39,6 @@ final class BugController extends AbstractController
         Security $security
     ): Response {
         $user = $security->getUser();
-
         return $this->render('bug/create.html.twig', [
             'controller_name' => 'BugController',
             'projects' => $this->getUser()->getProjects(),

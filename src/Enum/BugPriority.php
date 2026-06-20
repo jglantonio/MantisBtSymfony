@@ -27,4 +27,16 @@ enum BugPriority: int
             default => '',
         };
     }
+    public function label(): string
+    {
+        return match ($this) {
+            self::None => 'Ninguna',
+            self::Low => 'Baja',
+            self::Normal => 'Normal',
+            self::High => 'Alta',
+            self::Urgent => 'Urgente',
+            self::Immediate => 'Inmediata',
+            default => '',
+        };
+    }
 }
