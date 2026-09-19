@@ -64,6 +64,20 @@
 
                 <hr>
                 <div class="text-muted small text-uppercase mb-2">
+                    <i class="fa-solid fa-edit me-1"></i> Descripción
+                </div>
+                <div>
+                    {{ bug.getBugText.description }}
+                </div>
+                <hr>
+                <div class="text-muted small text-uppercase mb-2">
+                    <i class="fa-solid fa-file me-1"></i> Ficheros
+                </div>
+                <div>
+                    -- ficheros --
+                </div>
+                <hr>
+                <div class="text-muted small text-uppercase mb-2">
                     <i class="fa-solid fa-tag me-1"></i> Etiquetas
                 </div>
                 {% if tags is empty %}
@@ -75,6 +89,49 @@
                         </span>
                     {% endfor %}
                 {% endif %}
+
+            </div>
+        </div>
+
+        <div class="card  mb-4" >
+            <div class="card-header d-flex justify-content-between align-items-center bg-transparent">
+                <h5 class="mb-0">
+                    <i class="fa-solid fa-wrench text-info me-2"></i>Acciones rápidas
+                </h5>
+            </div>
+            <div class="card-body row">
+                <form class="col-md-5 row">
+                    <div  class="col-md-2 text-center">
+                        <label for="handler_id">Asginar a...</label>
+                    </div>
+                    <div class="col-md-7">
+                        <select class="form-select col-md-3">
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="submit" class="btn btn-dark">
+                    </div>
+                </form>
+                <form class="col-md-5 row">
+                    <div  class="col-md-2 text-center">
+                        <label for="handler_id">Cambiar estado a...</label>
+                    </div>
+                    <div class="col-md-7">
+                        <select class="form-select col-md-3">
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="submit" class="btn btn-dark">
+                    </div>
+                </form>
+                <div class="col-md-1">
+                    <a href="#" class="btn btn-dark">Cerrar</a>
+                </div>
+                <div class="col-md-1">
+                    <a href="#" class="btn btn-dark">Solucionar</a>
+                </div>
             </div>
         </div>
 

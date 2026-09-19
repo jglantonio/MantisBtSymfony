@@ -14,7 +14,7 @@
                 <select name="project_id" id="project_id" class="form-select" required>
                     <option value="">Selecciona un proyecto</option>
                     {% for project in projects %}
-                        <option value="{{ project.id }}">{{ project.name }}</option>
+                        <option value="{{ project.id }}" {{ project.id == bug.project.id ? 'selected' }}>{{ project.name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -24,7 +24,7 @@
                 <select name="handler_id" id="handler_id" class="form-select">
                     <option value="">Sin asignar</option>
                     {% for user in users %}
-                        <option value="{{ user.id }}">{{ user.username }}</option>
+                        <option value="{{ user.id }}"  {{ user.id == bug.handler.id ? 'selected' }}>{{ user.username }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -34,7 +34,7 @@
                 <select name="priority" id="priority" class="form-select">
                     {% for priority in priorities %}
                         <option value="{{ priority.value }}"
-                                {{ priority.value == 30 ? 'selected' }}>{{ priority.label }}</option>
+                                {{ priority.value == bug.priority ? 'selected' }}>{{ priority.label }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -43,7 +43,7 @@
                 <label for="status" class="form-label">Estado</label>
                 <select name="status" id="status" class="form-select">
                     {% for status in statuses %}
-                        <option value="{{ status.value }}">{{ status.label }}</option>
+                        <option value="{{ status.value }}" {{ status.value == bug.status ? 'selected' }}>{{ status.label }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -53,25 +53,29 @@
                 <select name="category_id" id="category_id" class="form-select" required>
                     <option value="">Selecciona una categoría</option>
                     {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        <option value="{{ category.id }}" {{ category.id == bug.category.id ? 'selected' }}>{{ category.name }}</option>
                     {% endfor %}
                 </select>
             </div>
 
             <div class="mb-2">
                 <label for="summary" class="form-label">Título</label>
-                <input type="text" name="summary" id="summary" class="form-control" required>
+                <input type="text" name="summary" id="summary" class="form-control" required value="{{bug.summary }}">
             </div>
+
 
             <div class="mb-2">
                 <label for="description" class="form-label">Descripción</label>
-                <textarea name="description" id="description" rows="5" class="form-control"></textarea>
+                <textarea name="description" id="description" rows="5" class="form-control">{{bug.bugText.description }}</textarea>
             </div>
 
             <div class="mb-3">
                 <label for="files" class="form-label">Adjuntos</label>
                 <input type="file" name="files[]" id="files" class="form-control" multiple>
                 <div class="form-text">Puedes adjuntar uno o varios documentos.</div>
+            </div>
+            <div>
+                -- Apartado de ficheros --
             </div>
 
             <input type="hidden" name="_token" value="{{ csrf_token('create-bug') }}">
