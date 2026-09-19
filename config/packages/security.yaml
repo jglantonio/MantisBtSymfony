@@ -41,7 +41,9 @@ security:
     # Note: Only the *first* matching rule is applied
     access_control:
          - { path: ^/main/menu, roles: ROLE_USER }
+         - { path: ^/bug, roles: ROLE_USER }
          - { path: ^/login, roles: PUBLIC_ACCESS }
+         - { path: ^/category, roles: PUBLIC_ACCESS }
 
 when@test:
     security:
