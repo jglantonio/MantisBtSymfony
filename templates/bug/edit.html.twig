@@ -1,0 +1,85 @@
+{% extends 'logged.html.twig' %}
+
+{% block title %}Gestión de Incidencias{% endblock %}
+
+{% block titles %}Incidencias{% endblock %}
+{% block subtitle %}Incidencias › Crear incidencia{% endblock %}
+
+{% block body %}
+    <section >
+        <form action="/bug/store" method="post" enctype="multipart/form-data" style="width: 800px;">
+
+            <div class="mb-2">
+                <label for="project_id" class="form-label">Proyecto</label>
+                <select name="project_id" id="project_id" class="form-select" required>
+                    <option value="">Selecciona un proyecto</option>
+                    {% for project in projects %}
+                        <option value="{{ project.id }}">{{ project.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-2">
+                <label for="handler_id" class="form-label">Asignar a</label>
+                <select name="handler_id" id="handler_id" class="form-select">
+                    <option value="">Sin asignar</option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-2">
+                <label for="priority" class="form-label">Prioridad</label>
+                <select name="priority" id="priority" class="form-select">
+                    {% for priority in priorities %}
+                        <option value="{{ priority.value }}"
+                                {{ priority.value == 30 ? 'selected' }}>{{ priority.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-2">
+                <label for="status" class="form-label">Estado</label>
+                <select name="status" id="status" class="form-select">
+                    {% for status in statuses %}
+                        <option value="{{ status.value }}">{{ status.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-2">
+                <label for="category_id" class="form-label">Categoría</label>
+                <select name="category_id" id="category_id" class="form-select" required>
+                    <option value="">Selecciona una categoría</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-2">
+                <label for="summary" class="form-label">Título</label>
+                <input type="text" name="summary" id="summary" class="form-control" required>
+            </div>
+
+            <div class="mb-2">
+                <label for="description" class="form-label">Descripción</label>
+                <textarea name="description" id="description" rows="5" class="form-control"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="files" class="form-label">Adjuntos</label>
+                <input type="file" name="files[]" id="files" class="form-control" multiple>
+                <div class="form-text">Puedes adjuntar uno o varios documentos.</div>
+            </div>
+
+            <input type="hidden" name="_token" value="{{ csrf_token('create-bug') }}">
+
+            <div>
+                <button type="submit" class="btn btn-primary">Crear incidencia</button>
+                <a href="/bug" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </section>
+{% endblock %}
