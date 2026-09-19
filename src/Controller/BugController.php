@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bug;
+use App\Entity\BugText;
 use App\Enum\BugPriority;
 use App\Enum\BugStatus;
 use App\Repository\BugRepository;
@@ -41,7 +42,7 @@ final class BugController extends AbstractController
         $user = $security->getUser();
         return $this->render('bug/create.html.twig', [
             'controller_name' => 'BugController',
-            'projects' => $this->getUser()->getProjects(),
+            'projects' => $user->getProjects(),
             'users' => $userRepository->findAll(),
             'categories' => $categoryRepository->findAll(),
             'priorities' => BugPriority::cases(),
@@ -68,7 +69,14 @@ final class BugController extends AbstractController
         $bug->setReporter($this->getUser());
         $bug->setDateSubmitted(time());
         $bug->setLastUpdated(time());
-        $bug->setBugTextId(0);
+
+        $bugText = new BugText();
+        $bugText->setDescription($payload->get('description') ?? '');
+        $bugText->setStepsToReproduce('');
+        $bugText->setAdditionalInformation('');
+
+        $bug->setBugText($bugText);
+        $entityManager->persist($bugText);
         $entityManager->persist($bug);
         $entityManager->flush();
         return $this->redirectToRoute('app_main_menu');
@@ -88,6 +96,27 @@ final class BugController extends AbstractController
             'categories' => $categoryRepository->findAll(),
             'priorities' => BugPriority::cases(),
             'statuses' => BugStatus::cases(),
+        ]);
+    }
+
+    #[Route('/bug/edit/{id}', name: 'app_bug_edit', methods: ['GET'])]
+    public function edit(
+        Bug $bug,
+        CategoryRepository $categoryRepository,
+        UserRepository $userRepository,
+        Security $security
+    ){
+        if(is_null($security->getUser())){
+            return $this->redirectToRoute('app_login');
+        }
+        return $this->render('bug/edit.html.twig', [
+            'controller_name' => 'BugController',
+            'projects' => $this->getUser()->getProjects(),
+            'users' => $userRepository->findAll(),
+            'categories' => $categoryRepository->findAll(),
+            'priorities' => BugPriority::cases(),
+            'statuses' => BugStatus::cases(),
+            'bug' => $bug,
         ]);
     }
 }

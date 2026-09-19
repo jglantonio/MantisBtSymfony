@@ -52,6 +52,9 @@ class Bug
     #[ORM\Column(name: 'bug_text_id' ,type: 'integer',nullable: true )]
     private ?int $bugTextId = 0;
 
+    #[ORM\ManyToOne(targetEntity: BugText::class , cascade:['persist'])]
+    private ?BugText $bugText = null;
+
     #[ORM\Column]
     private ?int $severity = 0;
 
@@ -78,6 +81,10 @@ class Bug
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getBugText(){
+        return $this->bugText;
     }
 
     public function getProject(): ?object
@@ -282,5 +289,15 @@ class Bug
     public function getCategory(): Category
     {
         return $this->category;
+    }
+
+    public function getHandlerId()
+    {
+        return $this->handlerId;
+    }
+
+    public function setBugText(BugText $bugText)
+    {
+        $this->bugText = $bugText;
     }
 }
