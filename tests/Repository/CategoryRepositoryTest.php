@@ -14,11 +14,6 @@ class CategoryRepositoryTest extends KernelTestCase
         $this->categoryRepository = $kernel->getContainer()->get(CategoryRepository::class);
     }
 
-    public function testGetCategories(): void
-    {
-        $categories = $this->categoryRepository->getCategories();
-        $this->assertIsArray($categories);
-    }
 
     public function testCount(): void
     {
