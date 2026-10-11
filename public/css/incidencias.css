@@ -399,8 +399,9 @@ body {
     --bs-btn-active-color: var(--text-primary);
 }
 
-/* Botón de acción icono-solo dentro de tablas */
-.main td .btn {
+/* Botón de acción icono-solo dentro de tablas: se vuelve "fantasma".
+   Los botones con texto conservan su aspecto para no parecer inactivos. */
+.main td .btn:has(> i:only-child) {
     --bs-btn-padding-x: var(--sp-2);
     --bs-btn-bg: transparent;
     --bs-btn-border-color: transparent;
@@ -437,6 +438,9 @@ body {
     background-color: var(--bg-base);
     border-color: var(--border-bright);
 }
+/* deja sitio al chevron que Bootstrap pinta de fondo */
+.main .form-select,
+.main form select { padding-right: 22px; }
 .main .form-control:focus,
 .main .form-select:focus {
     border-color: var(--accent-blue);
@@ -492,6 +496,9 @@ body {
 
 .main .card-header h5,
 .main h5 { font-size: var(--fs-md); font-weight: 700; }
+/* encabezados sueltos dentro del contenido: a escala, no a tamaño de portada */
+.main h1:not(.page-title) { font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--sp-2); }
+.main h2, .main h3, .main h4 { font-size: var(--fs-md); font-weight: 700; }
 .main hr {
     margin: var(--sp-3) 0;
     border-color: var(--border);
@@ -635,7 +642,7 @@ body {
 
 .incidents-table th,
 .main .table th {
-    padding: var(--sp-1) var(--sp-3);
+    padding: var(--sp-1) var(--sp-2);
     text-align: left;
     font-size: var(--fs-xs);
     font-weight: 700;
@@ -658,11 +665,23 @@ body {
 
 .incidents-table td,
 .main .table td {
-    padding: var(--sp-1) var(--sp-3);
+    padding: var(--sp-1) var(--sp-2);
     vertical-align: middle;
     color: var(--text-primary);
     background: transparent;
+    /* filas de una sola línea: es lo que mantiene la tabla densa.
+       Si no cabe, .table-section hace scroll horizontal. */
     white-space: nowrap;
+}
+
+/* Tabla sin .table-section alrededor (p. ej. listado de proyectos):
+   le damos el mismo acabado para que no desentone. */
+.main > .table,
+.main > section > .table {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
 }
 
 /* La tabla de Bootstrap pinta sus propias franjas; aquí no. */
@@ -677,7 +696,7 @@ body {
 .incident-summary {
     color: var(--text-primary);
     font-weight: 500;
-    max-width: 380px;
+    max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -783,6 +802,11 @@ body {
 .status--cerrada::before  { background: var(--text-muted); }
 
 /* ---- AVISOS ---- */
+.main .alert-light {
+    background: var(--bg-surface);
+    border-color: var(--border);
+    color: var(--text-secondary);
+}
 .main .alert {
     padding: var(--sp-2) var(--sp-3);
     font-size: 12px;
