@@ -1,0 +1,67 @@
+{% extends 'logged.html.twig' %}
+
+{% block title %}Gestión de Incidencias{% endblock %}
+{% block titles %}Listado de inidencias{% endblock %}
+{% block subtitle %}Mantisbt > Incidencias > Listado de inidencias{% endblock %}
+{% block headerbuttons %}
+    <a href="/bug/create" class="btn btn-primary">Crear incidencia</a>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+        {% block body %}
+            {# TABLA DE INCIDENCIAS #}
+<section class="table-section">
+
+
+
+    <table class="incidents-table">
+        <thead>
+        <tr>
+            <th>#ID</th>
+            <th>Resumen</th>
+            <th>Proyecto</th>
+            <th>Reportador</th>
+            <th>Prioridad</th>
+            <th>Estado</th>
+            <th>Asignado a</th>
+            <th>Últ. Actualización</th>
+            <th>Fecha creación</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for users in user %}
+            tr>
+            <th>Id</th>
+            <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Realname</th>
+                <td>{{ user.realname }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ user.enabled }}</td>
+            </tr>
+            <tr>
+                <th>Protected</th>
+                <td>{{ user.protected }}</td>
+            </tr>
+            <tr>
+                <th>Access_level</th>
+                <td>{{ user.accessLevel }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
