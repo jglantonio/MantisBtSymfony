@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use AllowDynamicProperties;
+use App\Enum\ProjectStateName;
+use App\Enum\ProjectStatus;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -113,6 +115,13 @@ class Project
     {
         return $this->status;
     }
+    public function getStatusName(){
+        return ProjectStatus::getStatusName($this->status);
+    }
+    public function getViewStateName(){
+        return ProjectStateName::getName($this->viewState);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -151,6 +160,36 @@ class Project
     {
         $this->id = $id;
         return $this;
+    }
+
+    public function getViewState(): int
+    {
+        return $this->viewState;
+    }
+
+    public function getAccessMin(): ?string
+    {
+        return $this->accessMin;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function getFilePath(): ?string
+    {
+        return $this->filePath;
+    }
+
+    public function getCategoryId(): ?string
+    {
+        return $this->categoryId;
+    }
+
+    public function getInheritGobal(): ?int
+    {
+        return $this->inheritGobal;
     }
 
 }
