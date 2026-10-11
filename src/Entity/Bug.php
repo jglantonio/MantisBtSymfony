@@ -38,10 +38,10 @@ class Bug
     private User  $handler;
 
     #[ORM\Column(name: 'duplicate_id' ,type: 'integer',nullable: true )]
-    private ?int $duplicateId = 0;
+    private ?int $duplicateId;
 
-    #[ORM\Column]
-    private ?int $priority;
+    #[ORM\Column(name:'priority' ,type: 'integer',nullable: true)]
+    private int $priority = 0;
 
     #[ORM\Column(name: 'last_updated' ,type: 'integer',nullable: true )]
     private ?int $lastUpdated;
@@ -50,7 +50,7 @@ class Bug
     private ?int $dateSubmitted;
 
     #[ORM\Column(name: 'bug_text_id' ,type: 'integer',nullable: true )]
-    private ?int $bugTextId = 0;
+    private ?int $bugTextId;
 
     #[ORM\ManyToOne(targetEntity: BugText::class , cascade:['persist'])]
     private ?BugText $bugText = null;
@@ -127,7 +127,7 @@ class Bug
     }
     public function getReporter(): ?object
     {
-        return $this->handler;
+        return $this->reporter;
     }
 
     public function setHandlerId(int $handlerId): static
@@ -168,9 +168,9 @@ class Bug
         return $this;
     }
 
-    public function setDuplicatedId(int $duplicatedId)
+    public function setDuplicateId(int $duplicateId)
     {
-        $this->duplicatedId = $duplicatedId;
+        $this->duplicateId = $duplicateId;
     }
 
     public function setSeverity(int $severity)

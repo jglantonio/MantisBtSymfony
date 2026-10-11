@@ -7,6 +7,7 @@ use App\Entity\BugText;
 use App\Enum\BugPriority;
 use App\Enum\BugStatus;
 use App\Repository\BugRepository;
+use App\Repository\BugTextRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;
@@ -106,9 +107,6 @@ final class BugController extends AbstractController
         UserRepository $userRepository,
         Security $security
     ){
-        if(is_null($security->getUser())){
-            return $this->redirectToRoute('app_login');
-        }
         return $this->render('bug/edit.html.twig', [
             'controller_name' => 'BugController',
             'projects' => $this->getUser()->getProjects(),
@@ -118,5 +116,33 @@ final class BugController extends AbstractController
             'statuses' => BugStatus::cases(),
             'bug' => $bug,
         ]);
+    }
+    #[Route('/bug/update/{id}', name: 'app_bug_update', methods: ['POST'])]
+    public function update(
+        Bug $bug,
+        BugTextRepository $bugTextRepository,
+        Request $request,
+        EntityManagerInterface $entityManager,
+    ){
+        $bug->setProjectId($request->request->get('project_id'));
+        $bug->setHandlerId($request->request->get('handler_id'));
+        $bug->setPriority($request->request->get('priority'));
+        $bug->setStatus($request->request->get('status'));
+        $bug->setCategoryId($request->request->get('category_id'));
+        $bug->setSummary($request->request->get('summary'));
+        $bugTextId = is_numeric($request->request->get('bugtext_id'))?((int) $request->request->get('bugtext_id')):null;
+        $bugText = $bugTextRepository->findById($bugTextId);
+
+        if(!$bugText){
+            return $this->redirectToRoute('app_main_menu');
+        }
+
+        $bugText->setDescription($request->request->get('summary'));
+
+        $entityManager->persist($bugText);
+        $entityManager->persist($bug);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_main_menu');
     }
 }

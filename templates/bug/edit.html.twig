@@ -7,7 +7,7 @@
 
 {% block body %}
     <section >
-        <form action="/bug/store" method="post" enctype="multipart/form-data" style="width: 800px;">
+        <form action="/bug/update/{{bug.id}}" method="post" enctype="multipart/form-data" style="width: 800px;">
 
             <div class="mb-2">
                 <label for="project_id" class="form-label">Proyecto</label>
@@ -24,7 +24,7 @@
                 <select name="handler_id" id="handler_id" class="form-select">
                     <option value="">Sin asignar</option>
                     {% for user in users %}
-                        <option value="{{ user.id }}"  {{ user.id == bug.handler.id ? 'selected' }}>{{ user.username }}</option>
+                        <option value="{{ user.id }}"  {{ user.id == bug.handlerId ? 'selected' }}>{{ user.username }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -67,6 +67,7 @@
             <div class="mb-2">
                 <label for="description" class="form-label">Descripción</label>
                 <textarea name="description" id="description" rows="5" class="form-control">{{bug.bugText.description }}</textarea>
+                <input name="bugtext_id" id="bugtext_id" type="hidden" value="{{bug.bugText.id }}">
             </div>
 
             <div class="mb-3">
@@ -78,10 +79,10 @@
                 -- Apartado de ficheros --
             </div>
 
-            <input type="hidden" name="_token" value="{{ csrf_token('create-bug') }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('edit-bug') }}">
 
             <div>
-                <button type="submit" class="btn btn-primary">Crear incidencia</button>
+                <button type="submit" class="btn btn-primary">Editar incidencia</button>
                 <a href="/bug" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
